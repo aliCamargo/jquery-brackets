@@ -5,12 +5,17 @@
     var get_html_player = function(player){
             var winner = player.winner ? 'winner' : '';
             var ID = player.ID ? player.ID : '';
-            var url = player.url ? player.url : 'javascript:;';
 
             var html_player = '       <div class="player ' + winner + ' player-' + ID + '" data-id="' + ID + '">';
-            html_player += '        <a class="name" href="' + url + '">';
-            html_player += '           ' + player.name;
-            html_player += '        </a>';
+
+            if( player.url ){
+                html_player += '        <a class="name" href="' + player.url + '">';
+                html_player += '           ' + player.name;
+                html_player += '        </a>';
+            }else{
+                html_player += '           ' + player.name;
+            }
+
             html_player += '       </div>';
 
             return html_player;
@@ -98,15 +103,17 @@
             return html;
         },
 
+        key = function(i){
+            return ( 23 *  Math.pow( 2, (i-2) ) ) + ( 20 * Math.pow( 2, (i-3) ) ) + ( 40 * ( Math.pow( 2, (i-3) ) - 1) )
+        },
+
         get_style_brackets = function(max_brackets){
             var css = '';
             max_brackets = max_brackets ? max_brackets : 0;
             for(i = 2; i <= max_brackets; i++){
 
-                var key = ( 23 *  Math.pow( 2, (i-2) ) ) + ( 20 * Math.pow( 2, (i-3) ) ) + ( 40 * ( Math.pow( 2, (i-3) ) - 1) );
-
-                var mtl = i == 2 ? 23 + 9.5 : key + 19.5;
-                var mtr = i == 2 ? 23 - 1.5 : key + 8.5;
+                var mtl = i == 2 ? 23 + 9.5 : key(i) + 19.5;
+                var mtr = i == 2 ? 23 - 1.5 : key(i) + 8.5;
                 var mbp = (2 * mtr) + 40;
                 var hl = (2 * mtl) + 40;
 
@@ -131,6 +138,10 @@
                 return (max_brackets)*150 + (max_brackets-1)*80 - (max_brackets-1)*75;
         },
 
+        get_height_container = function(max_brackets){
+            return key(max_brackets+1);
+        },
+
         set_style = function(styles, n_brackets){
 
             var css,
@@ -149,9 +160,17 @@
             css += "}";
             css += ".brackets-header .title{ float: left; width: 150px;  margin-right: 5px; text-align: center;}";
             css += ".brackets-header .title:last-child{ margin-right: 0px;}";
+            css += ".container-brackets *,";
+            css += ".container-brackets *:before,";
+            css += ".container-brackets *:after {";
+            css += "  -webkit-box-sizing: content-box !important;";
+            css += "     -moz-box-sizing: content-box !important;";
+            css += "          box-sizing: content-box !important;";
+            css += "}";
             css += ".container-brackets{";
             css += "    position: relative;";
             css += "    width: " + get_width_container( n_brackets ) + "px !important;";
+            css += "    height: " + get_height_container( n_brackets ) + "px !important;";
             css += "}";
             css += ".container-brackets .round{ width: 150px; margin-left: -75px; float: left;}";
             css += "    .container-brackets .round:first-child{ margin-left: 0; }";
