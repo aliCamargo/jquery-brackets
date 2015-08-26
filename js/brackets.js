@@ -47,8 +47,9 @@
 
         },
 
-        get_html_header = function(titles, max_brackets){
-
+        get_html_header = function(opts){
+            var titles = opts.titles,
+                max_brackets = opts.rounds.length;
             var html_titles = '';
 
             html_titles += '<div class="brackets-header">';
@@ -63,10 +64,10 @@
                 }else{
 
                     for(i = 1; i <= max_brackets; i++){
-                        if( i == max_brackets) html_titles += '<div class="title">Champion</div>';
-                        else if( i == (max_brackets-1) && max_brackets > 2 ) html_titles += '<div class="title">Final</div>';
-                        else if( i == (max_brackets-2) && max_brackets > 3 ) html_titles += '<div class="title">Semifinal</div>';
-                        else html_titles += '<div class="title">Round ' + i + '</div>';
+                        if( i == max_brackets) html_titles += '<div class="title">' + opts.text_champion + '</div>';
+                        else if( i == (max_brackets-1) && max_brackets > 2 ) html_titles += '<div class="title">' + opts.text_final + '</div>';
+                        else if( i == (max_brackets-2) && max_brackets > 3 ) html_titles += '<div class="title">' + opts.text_semifinal + '</div>';
+                        else html_titles += '<div class="title">' + opts.text_round + i + '</div>';
                     }
                 }
 
@@ -77,10 +78,12 @@
             return html_titles;
         },
 
-        get_html = function(rounds, titles){
+        get_html = function(opts){
+            var rounds = opts.rounds,
+                titles = opts.titles;
             var html  = '';
 
-            html += get_html_header(titles, rounds.length);
+            html += get_html_header(opts,titles, rounds.length);
             html += '<div class="container-brackets">';
 
             $.each(rounds, function(r, round){
@@ -248,7 +251,7 @@
                 var $this = $(this);
 
                 //-- add html brackets
-                var container_brackets = get_html( opts.rounds, opts.titles )
+                var container_brackets = get_html( opts )
                 $this.html( container_brackets );
                 set_style( opts, opts.rounds.length )
 
@@ -285,6 +288,10 @@
         bg_player_hover: 'white',
         border_radius_player: '0px',
         border_radius_lines: '0px',
+        text_round: 'Round ',
+        text_champion: 'Champion',
+        text_final: 'Final',
+        text_semifinal: 'Semifinal',
     };
 
 

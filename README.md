@@ -66,6 +66,10 @@ $(".brackets").brackets({
             bg_player_hover: 'blue',        //-- (String) Background color of the player container when mouse is hover
             border_radius_player: '10px',   //-- (String) Border radius of the player container
             border_radius_lines: '10px',    //-- (String) Border radius of the lines that join rounds
+            text_round:     'Battle No.',   //-- (String) Text used instead of 'Round '
+            text_semifinal: 'Semifinal',    //-- (String) Text used instead of 'Semifinal'
+            text_final:     'Final',        //-- (String) Text used instead of 'Final'
+            text_champion:  'The bast',     //-- (String) Text used instead of 'Champion'
         });
 
 ```
@@ -85,6 +89,10 @@ $(".brackets").brackets({
     bg_player_hover: 'white',
     border_radius_player: '0px',
     border_radius_lines: '0px'
+    text_round:     'Round ',
+    text_semifinal: 'Semifinal',
+    text_final:     'Final',
+    text_champion:  'Champion',
 });
 
 ```
