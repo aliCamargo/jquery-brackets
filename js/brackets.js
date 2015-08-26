@@ -25,10 +25,10 @@
             var html_match = '   <div class="match">';
 
             if(match.player1)
-            html_match += get_html_player(match.player1);
+                html_match += get_html_player(match.player1);
 
             if(match.player2)
-            html_match += get_html_player(match.player2);
+                html_match += get_html_player(match.player2);
 
             html_match += '   </div>';
 
@@ -70,7 +70,7 @@
                     }
                 }
 
-                }
+            }
 
             html_titles += '</div>';
 
@@ -104,7 +104,7 @@
         },
 
         key = function(i){
-            return ( 23 *  Math.pow( 2, (i-2) ) ) + ( 20 * Math.pow( 2, (i-3) ) ) + ( 40 * ( Math.pow( 2, (i-3) ) - 1) )
+            return  53 * Math.pow( 2, i-2 ) - 20;
         },
 
         get_style_brackets = function(max_brackets){
@@ -135,7 +135,7 @@
         },
 
         get_width_container = function(max_brackets){
-                return (max_brackets)*150 + (max_brackets-1)*80 - (max_brackets-1)*75;
+                return (max_brackets)*150 + (max_brackets-1)*5;
         },
 
         get_height_container = function(max_brackets){
